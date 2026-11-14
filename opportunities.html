@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Opportunities — HAESA CONNECT</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-120.png" alt="HAESA CONNECT crest">
+      HAESA CONNECT
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav>
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="resources.html" data-i18n="nav.resources">Resource Center</a>
+        <a href="opportunities.html" class="active" data-i18n="nav.opportunities">Opportunities</a>
+        <a href="challenge.html" data-i18n="nav.challenge">Challenge System</a>
+        <a href="festival.html" data-i18n="nav.festival">Festival</a>
+        <a href="articles.html" data-i18n="nav.articles">Articles</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="careers.html" data-i18n="nav.careers">Careers</a>
+        <a href="casting.html" data-i18n="nav.casting">MG Project Casting</a>
+        <a href="report.html" data-i18n="nav.report">Submit Report</a>
+      </div>
+      <a href="index.html#join" class="nav-cta" data-i18n="nav.join">Join the network</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="kicker" data-i18n="opps.kicker">A guide to global opportunities</div>
+    <h1 data-i18n="opps.h1">Scholarships, fellowships &amp; internships across seven sectors</h1>
+    <p class="lead" data-i18n="opps.lead">Hand-curated for History, Archaeology and Economics students and alumni from African institutions. Always confirm deadlines and requirements on the organisation's own site before applying.</p>
+  </div>
+</section>
+
+<section class="filters">
+  <div class="wrap">
+    <div class="filter-row" id="filterRow">
+      <button class="filter-btn active" data-sector="all" data-i18n="filter.all">All</button>
+      <button class="filter-btn" data-sector="business" data-i18n="filter.business">Business</button>
+      <button class="filter-btn" data-sector="education" data-i18n="filter.education">Education</button>
+      <button class="filter-btn" data-sector="finance" data-i18n="filter.finance">Finance</button>
+      <button class="filter-btn" data-sector="entertainment" data-i18n="filter.entertainment">Entertainment</button>
+      <button class="filter-btn" data-sector="export" data-i18n="filter.export">Export &amp; Trade</button>
+      <button class="filter-btn" data-sector="technology" data-i18n="filter.technology">Technology</button>
+      <button class="filter-btn" data-sector="diplomacy" data-i18n="filter.diplomacy">Diplomacy</button>
+      <button class="filter-btn" data-sector="funding" data-i18n="filter.funding">Startup Funding</button>
+    </div>
+  </div>
+</section>
+
+<section class="opps-list">
+  <div class="wrap">
+    <div class="opp-grid" id="oppGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a href="index.html" class="brand"><img src="assets/logo-120.png" alt="HAESA CONNECT crest">HAESA CONNECT</a>
+      <div class="foot-note" data-i18n="footer.tagline">Reawakening the African Mind.</div>
+    </div>
+    <div class="foot-links">
+      <a href="opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+      <a href="articles.html" data-i18n="nav.articles">Articles</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="festival.html" data-i18n="nav.festival">Festival</a>
+      <a href="challenge.html">Challenge System</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="i18n.js"></script>
+<script>
+  const grid = document.getElementById('oppGrid');
+  const params = new URLSearchParams(location.search);
+  const initialSector = params.get('sector') || 'all';
+  renderOpportunities(grid, initialSector);
+  document.querySelectorAll('.filter-btn').forEach(btn=>{
+    if(btn.dataset.sector === initialSector){
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+    }
+    btn.addEventListener('click', ()=>{
+      document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+      btn.classList.add('active');
+      renderOpportunities(grid, btn.dataset.sector);
+    });
+  });
+  document.addEventListener('haesa:languagechange', ()=>{
+    const active = document.querySelector('.filter-btn.active');
+    renderOpportunities(grid, active ? active.dataset.sector : 'all');
+  });
+</script>
+</body>
+</html>

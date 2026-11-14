@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Admin — Add an article — HAESA CONNECT</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .admin-wrap{max-width:760px; margin:0 auto; padding:60px 32px 120px; position:relative; z-index:1;}
+  .admin-wrap h1{font-size:32px; margin-bottom:10px;}
+  .admin-note{background:var(--parchment-deep); border-radius:4px; padding:18px 20px; font-size:14.5px; color:rgba(20,17,16,0.85); margin:22px 0 34px;}
+  .admin-form{display:grid; gap:16px;}
+  .admin-form .field label{font-size:13px; color:rgba(20,17,16,0.6); display:block; margin-bottom:6px;}
+  .admin-form input[type=text], .admin-form textarea, .admin-form select{
+    width:100%; padding:12px 14px; border-radius:3px; border:1px solid var(--line); font-family:'Karla',sans-serif; font-size:15px; background:#fff;
+  }
+  .admin-form textarea{min-height:90px; resize:vertical;}
+  .two-col{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
+  @media(max-width:600px){.two-col{grid-template-columns:1fr;}}
+  .dropzone{
+    border:2px dashed var(--clay); border-radius:6px; padding:34px 20px; text-align:center;
+    color:rgba(20,17,16,0.7); font-size:14.5px; cursor:pointer; background:var(--parchment-deep);
+    transition:background .15s;
+  }
+  .dropzone.drag{background:#E3CBA0;}
+  .dropzone img{max-height:160px; margin:0 auto 12px; border-radius:4px;}
+  #fileInput{display:none;}
+  .btn-primary{margin-top:6px;}
+  #output{margin-top:30px;}
+  #output textarea{width:100%; min-height:220px; font-family:ui-monospace,Menlo,Consolas,monospace; font-size:13px; padding:16px; border-radius:4px; border:1px solid var(--line); background:var(--ink); color:var(--parchment);}
+  .steps{margin-top:14px; font-size:14px; color:rgba(20,17,16,0.75); line-height:1.7;}
+  .steps b{color:var(--ink);}
+  .copy-btn{margin-top:10px;}
+  .download-link{display:inline-block; margin-top:10px; font-weight:700; color:var(--clay); text-decoration:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-120.png" alt="HAESA CONNECT crest">
+      HAESA CONNECT
+    </a>
+    <nav><div class="nav-links"><a href="articles.html">← Back to Articles</a></div></nav>
+  </div>
+</header>
+
+<div class="admin-wrap">
+  <h1>Add an article, write-up or media post</h1>
+  <div class="admin-note">
+    This page runs entirely in your browser — nothing is uploaded to a server, so it's safe to use privately. Fill in the details, drag in a cover image, then copy the generated code into <b>data.js</b> and drop the image into the <b>assets/articles/</b> folder. Refresh <b>articles.html</b> and it appears — no other software needed.
+  </div>
+
+  <form class="admin-form" id="adminForm">
+    <div class="two-col">
+      <div class="field">
+        <label for="type">Type</label>
+        <select id="type">
+          <option value="article">Article</option>
+          <option value="writeup">Write-up</option>
+          <option value="media">Media</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="category">Discipline / category</label>
+        <select id="category">
+          <option>History</option>
+          <option>Archaeology</option>
+          <option>Economics</option>
+          <option>Entrepreneurship</option>
+          <option>Travel</option>
+          <option>Community</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="title">Title</label>
+      <input type="text" id="title" placeholder="e.g. Fieldwork notes: a first excavation season">
+    </div>
+
+    <div class="two-col">
+      <div class="field">
+        <label for="author">Author</label>
+        <input type="text" id="author" placeholder="e.g. Praise Obuma">
+      </div>
+      <div class="field">
+        <label for="date">Date</label>
+        <input type="text" id="date" placeholder="YYYY-MM-DD">
+      </div>
+    </div>
+
+    <div class="field">
+      <label for="excerpt">Short excerpt (1–2 sentences)</label>
+      <textarea id="excerpt"></textarea>
+    </div>
+
+    <div class="field">
+      <label for="link">Link (full write-up URL, PDF, or YouTube link — leave as # if none yet)</label>
+      <input type="text" id="link" placeholder="#">
+    </div>
+
+    <div class="field">
+      <label>Cover image (optional — drag &amp; drop or click)</label>
+      <div class="dropzone" id="dropzone">
+        <div id="dropzoneText">Drag an image here, or click to choose one</div>
+      </div>
+      <input type="file" id="fileInput" accept="image/*">
+    </div>
+
+    <button type="button" class="btn-primary" id="generateBtn">Generate code</button>
+  </form>
+
+  <div id="output" style="display:none;">
+    <label style="font-size:13px; color:rgba(20,17,16,0.6); display:block; margin-bottom:6px;">Paste this into the <b>ARTICLES</b> array in data.js:</label>
+    <textarea id="codeOut" readonly></textarea>
+    <button class="btn-ghost copy-btn" id="copyBtn" type="button">Copy code</button>
+    <div id="imageDownload"></div>
+    <div class="steps">
+      <b>Steps:</b><br>
+      1. Copy the code above.<br>
+      2. Open <b>data.js</b> in any text editor and paste it as a new entry inside the <b>ARTICLES</b> array (add a comma after the entry before it).<br>
+      3. If you added an image, click "Download image", then save it into the <b>assets/articles/</b> folder using the filename shown.<br>
+      4. Save, re-upload the site files if hosted elsewhere, and refresh <b>articles.html</b>.
+    </div>
+  </div>
+</div>
+
+<script>
+  const dropzone = document.getElementById('dropzone');
+  const fileInput = document.getElementById('fileInput');
+  const dropzoneText = document.getElementById('dropzoneText');
+  let currentFile = null;
+  let currentFileName = "";
+
+  dropzone.addEventListener('click', ()=> fileInput.click());
+  dropzone.addEventListener('dragover', e=>{ e.preventDefault(); dropzone.classList.add('drag'); });
+  dropzone.addEventListener('dragleave', ()=> dropzone.classList.remove('drag'));
+  dropzone.addEventListener('drop', e=>{
+    e.preventDefault(); dropzone.classList.remove('drag');
+    if(e.dataTransfer.files.length) handleFile(e.dataTransfer.files[0]);
+  });
+  fileInput.addEventListener('change', e=>{
+    if(e.target.files.length) handleFile(e.target.files[0]);
+  });
+
+  function handleFile(file){
+    currentFile = file;
+    currentFileName = file.name.toLowerCase().replace(/[^a-z0-9.]+/g,'-');
+    const reader = new FileReader();
+    reader.onload = ev=>{
+      dropzoneText.innerHTML = `<img src="${ev.target.result}" alt=""><div>${file.name}</div>`;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  function slugify(str){
+    return str.toLowerCase().trim().replace(/[^a-z0-9]+/g,'-').replace(/(^-|-$)/g,'');
+  }
+
+  document.getElementById('generateBtn').addEventListener('click', ()=>{
+    const type = document.getElementById('type').value;
+    const category = document.getElementById('category').value;
+    const title = document.getElementById('title').value.trim() || "Untitled";
+    const author = document.getElementById('author').value.trim() || "HAESA CONNECT";
+    const date = document.getElementById('date').value.trim() || new Date().toISOString().slice(0,10);
+    const excerpt = document.getElementById('excerpt').value.trim();
+    const link = document.getElementById('link').value.trim() || "#";
+    const imgPath = currentFile ? `assets/articles/${slugify(title)}-${currentFileName.split('.').pop()==='jpg'||currentFileName.split('.').pop()==='png'?slugify(title)+'.'+currentFileName.split('.').pop():currentFileName}` : "";
+    const finalImgPath = currentFile ? `assets/articles/${slugify(title)}.${currentFileName.split('.').pop()}` : "";
+
+    const code = `  {
+    type: "${type}",
+    category: "${category}",
+    title: "${title.replace(/"/g,'\\"')}",
+    author: "${author.replace(/"/g,'\\"')}",
+    date: "${date}",
+    image: "${finalImgPath}",
+    excerpt: "${excerpt.replace(/"/g,'\\"')}",
+    link: "${link}"
+  },`;
+
+    document.getElementById('codeOut').value = code;
+    document.getElementById('output').style.display = 'block';
+
+    const dl = document.getElementById('imageDownload');
+    dl.innerHTML = "";
+    if(currentFile){
+      const url = URL.createObjectURL(currentFile);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `${slugify(title)}.${currentFileName.split('.').pop()}`;
+      a.textContent = `Download image as "${slugify(title)}.${currentFileName.split('.').pop()}"`;
+      a.className = "download-link";
+      dl.appendChild(a);
+    }
+  });
+
+  document.getElementById('copyBtn').addEventListener('click', ()=>{
+    const out = document.getElementById('codeOut');
+    out.select();
+    document.execCommand('copy');
+    const btn = document.getElementById('copyBtn');
+    const old = btn.textContent;
+    btn.textContent = "Copied!";
+    setTimeout(()=> btn.textContent = old, 1500);
+  });
+</script>
+</body>
+</html>

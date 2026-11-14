@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MG Project Cast Registration — HAESA CONNECT</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .phase-row{display:grid; grid-template-columns:repeat(3,1fr); gap:1px; background:var(--line); border:1px solid var(--line); margin:36px 0 10px;}
+  @media(max-width:700px){.phase-row{grid-template-columns:1fr;}}
+  .phase-card{background:var(--parchment); padding:26px 24px;}
+  .phase-card .phase-label{font-family:'Fraunces',serif; font-size:14px; color:var(--clay); font-weight:600; margin-bottom:8px;}
+  .phase-card h3{font-size:19px; margin-bottom:8px;}
+  .phase-card p{font-size:14.5px; color:rgba(20,17,16,0.78); margin:0;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-120.png" alt="HAESA CONNECT crest">
+      HAESA CONNECT
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav>
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="resources.html" data-i18n="nav.resources">Resource Center</a>
+        <a href="opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+        <a href="challenge.html" data-i18n="nav.challenge">Challenge System</a>
+        <a href="festival.html" data-i18n="nav.festival">Festival</a>
+        <a href="articles.html" data-i18n="nav.articles">Articles</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="careers.html" data-i18n="nav.careers">Careers</a>
+        <a href="casting.html" class="active" data-i18n="nav.casting">MG Project Casting</a>
+      </div>
+      <a href="index.html#join" class="nav-cta" data-i18n="nav.join">Join the network</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="kicker" data-i18n="casting.kicker">Casting call</div>
+    <h1 data-i18n="casting.h1">MG Project — Cast Registration</h1>
+    <p class="lead" data-i18n="casting.lead">A cinematic media project in three phases. Register below and tell us which phase you'd like to be considered for — our casting team will reach out with next steps.</p>
+
+    <div class="phase-row">
+      <div class="phase-card">
+        <div class="phase-label" data-i18n="phase1.label">Phase I</div>
+        <h3>MG PROJECT I</h3>
+        <p data-i18n="phase.tba">Details to be announced. Register your interest to be notified first.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label" data-i18n="phase2.label">Phase II</div>
+        <h3>MG PROJECT II</h3>
+        <p data-i18n="phase.tba">Details to be announced. Register your interest to be notified first.</p>
+      </div>
+      <div class="phase-card">
+        <div class="phase-label" data-i18n="phase3.label">Phase III</div>
+        <h3>MG PROJECT III</h3>
+        <p data-i18n="phase.tba">Details to be announced. Register your interest to be notified first.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="report-form">
+  <div class="wrap" style="max-width:760px;">
+    <!--
+      GOOGLE FORM EMBED
+      Build one Google Form with the fields below, then paste its embed URL
+      in place of YOUR_GOOGLE_FORM_URL — same steps as the other forms on
+      this site (Send button on the form → the "<>" embed icon → copy the
+      src="..." URL). Responses fill a linked Google Sheet automatically.
+
+      Suggested fields:
+      - Full name — short answer
+      - Email — short answer
+      - Phone / WhatsApp number — short answer
+      - Country / city — short answer
+      - Which project are you registering for? — checkboxes:
+          MG PROJECT I / MG PROJECT II / MG PROJECT III / Open to any phase
+      - Role you're applying for — multiple choice:
+          Lead cast / Supporting cast / Extra / Crew / Other (with a text field)
+      - Acting / production experience — paragraph
+      - Portfolio, reel or showreel link — short answer
+      - Headshot or recent photo — file upload (Google Forms supports this)
+      - Availability (dates you're free to shoot) — paragraph
+      - Social media handle(s) — short answer
+      - Why do you want to be part of this project? — paragraph
+    -->
+    <iframe src="YOUR_GOOGLE_FORM_URL" width="100%" height="2200" frameborder="0" style="border-radius:6px;background:#fff;">Loading…</iframe>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a href="index.html" class="brand"><img src="assets/logo-120.png" alt="HAESA CONNECT crest">HAESA CONNECT</a>
+      <div class="foot-note" data-i18n="footer.tagline">Reawakening the African Mind.</div>
+    </div>
+    <div class="foot-links">
+      <a href="resources.html" data-i18n="nav.resources">Resource Center</a>
+      <a href="opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+      <a href="articles.html" data-i18n="nav.articles">Articles</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="festival.html" data-i18n="nav.festival">Festival</a>
+      <a href="challenge.html">Challenge System</a>
+    </div>
+  </div>
+</footer>
+
+<script src="i18n.js"></script>
+</body>
+</html>

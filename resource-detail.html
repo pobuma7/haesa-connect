@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resource — HAESA CONNECT</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+<style>
+  .guide-wrap{max-width:720px; margin:0 auto; padding:60px 32px 100px; position:relative; z-index:1;}
+  .guide-meta{display:flex; gap:14px; flex-wrap:wrap; font-size:13.5px; color:var(--nile); font-weight:600; margin-bottom:16px;}
+  .guide-wrap h1{font-size:clamp(28px,4vw,38px); margin-bottom:26px;}
+  .guide-body p{font-size:17px; line-height:1.75; color:rgba(20,17,16,0.88); margin:0 0 20px;}
+  .source-box{background:var(--parchment-deep); border-radius:6px; padding:22px 24px; margin-top:34px; font-size:14.5px; color:rgba(20,17,16,0.8);}
+  .source-box a{color:var(--clay); font-weight:700; text-decoration:none;}
+  .source-box a:hover{text-decoration:underline;}
+  .back-link{display:inline-block; margin-bottom:28px; font-size:14px; font-weight:600; color:var(--indigo); text-decoration:none;}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-120.png" alt="HAESA CONNECT crest">
+      HAESA CONNECT
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav>
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="resources.html" data-i18n="nav.resources">Resource Center</a>
+        <a href="opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+        <a href="challenge.html" data-i18n="nav.challenge">Challenge System</a>
+        <a href="festival.html" data-i18n="nav.festival">Festival</a>
+        <a href="articles.html" data-i18n="nav.articles">Articles</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="careers.html" data-i18n="nav.careers">Careers</a>
+        <a href="casting.html" data-i18n="nav.casting">MG Project Casting</a>
+        <a href="report.html" data-i18n="nav.report">Submit Report</a>
+      </div>
+      <a href="index.html#join" class="nav-cta" data-i18n="nav.join">Join the network</a>
+    </nav>
+  </div>
+</header>
+
+<div class="guide-wrap" id="guideWrap">
+  <a href="resources.html" class="back-link">← Back to Resource Center</a>
+  <div id="guideContent">Loading…</div>
+</div>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a href="index.html" class="brand"><img src="assets/logo-120.png" alt="HAESA CONNECT crest">HAESA CONNECT</a>
+      <div class="foot-note" data-i18n="footer.tagline">Reawakening the African Mind.</div>
+    </div>
+    <div class="foot-links">
+      <a href="resources.html" data-i18n="nav.resources">Resource Center</a>
+      <a href="opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+      <a href="articles.html" data-i18n="nav.articles">Articles</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="festival.html" data-i18n="nav.festival">Festival</a>
+      <a href="challenge.html">Challenge System</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="i18n.js"></script>
+<script>
+  const params = new URLSearchParams(location.search);
+  const slug = params.get('slug');
+  const resource = RESOURCES.find(r => r.slug === slug);
+  const content = document.getElementById('guideContent');
+
+  function renderGuide(){
+    if(!resource || !resource.content){
+      content.innerHTML = `<h1>Guide not found</h1><p>We couldn't find that resource — it may have moved. <a href="resources.html">Browse the Resource Center →</a></p>`;
+      return;
+    }
+    const pillar = RESOURCE_PILLARS.find(p => p.key === resource.category);
+    document.title = resource.title + " — HAESA CONNECT";
+    content.innerHTML = `
+      <div class="guide-meta">
+        <span>${pillar ? pillar.icon + " " + pillarLabel(resource.category) : resource.category}</span>
+        <span>${resource.level}</span>
+        <span>${resource.duration}</span>
+      </div>
+      <h1>${resource.title}</h1>
+      <div class="guide-body">
+        ${L(resource.content).map(p => `<p>${p}</p>`).join("")}
+      </div>
+      <div class="source-box">
+        Written for HAESA CONNECT. For the full original guide, visit <a href="${resource.link}" target="_blank" rel="noopener">${resource.sourceName} →</a>
+      </div>
+    `;
+  }
+  renderGuide();
+  document.addEventListener('haesa:languagechange', renderGuide);
+</script>
+</body>
+</html>

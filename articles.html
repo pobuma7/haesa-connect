@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Articles — HAESA CONNECT</title>
+<link rel="icon" href="assets/favicon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <a href="index.html" class="brand">
+      <img src="assets/logo-120.png" alt="HAESA CONNECT crest">
+      HAESA CONNECT
+    </a>
+    <button class="menu-toggle" id="menuToggle" aria-label="Menu" aria-expanded="false">☰</button>
+    <nav>
+      <div class="nav-links">
+        <a href="index.html" data-i18n="nav.home">Home</a>
+        <a href="resources.html" data-i18n="nav.resources">Resource Center</a>
+        <a href="opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+        <a href="challenge.html" data-i18n="nav.challenge">Challenge System</a>
+        <a href="festival.html" data-i18n="nav.festival">Festival</a>
+        <a href="articles.html" class="active" data-i18n="nav.articles">Articles</a>
+        <a href="about.html" data-i18n="nav.about">About</a>
+        <a href="careers.html" data-i18n="nav.careers">Careers</a>
+        <a href="casting.html" data-i18n="nav.casting">MG Project Casting</a>
+        <a href="report.html" data-i18n="nav.report">Submit Report</a>
+      </div>
+      <a href="index.html#join" class="nav-cta" data-i18n="nav.join">Join the network</a>
+    </nav>
+  </div>
+</header>
+
+<section class="page-hero">
+  <div class="wrap">
+    <div class="kicker" data-i18n="articles.kicker">Articles, write-ups &amp; media</div>
+    <h1 data-i18n="articles.h1">Writing from the HAESA CONNECT community</h1>
+    <p class="lead" data-i18n="articles.lead">Research notes, fieldwork write-ups, explainers and member spotlights across History, Archaeology and Economics.</p>
+  </div>
+</section>
+
+<section class="articles-list">
+  <div class="wrap">
+    <div class="article-grid" id="articleGrid"></div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div>
+      <a href="index.html" class="brand"><img src="assets/logo-120.png" alt="HAESA CONNECT crest">HAESA CONNECT</a>
+      <div class="foot-note" data-i18n="footer.tagline">Reawakening the African Mind.</div>
+    </div>
+    <div class="foot-links">
+      <a href="opportunities.html" data-i18n="nav.opportunities">Opportunities</a>
+      <a href="articles.html" data-i18n="nav.articles">Articles</a>
+      <a href="about.html" data-i18n="nav.about">About</a>
+      <a href="festival.html" data-i18n="nav.festival">Festival</a>
+      <a href="challenge.html">Challenge System</a>
+    </div>
+  </div>
+</footer>
+
+<script src="data.js"></script>
+<script src="i18n.js"></script>
+<script>
+  renderArticles(document.getElementById('articleGrid'));
+  document.addEventListener('haesa:languagechange', ()=>{
+    renderArticles(document.getElementById('articleGrid'));
+  });
+</script>
+</body>
+</html>
